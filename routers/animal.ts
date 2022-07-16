@@ -1,5 +1,6 @@
 import {Router} from "express";
 import {AnimalRecord} from "../records/animal.record";
+import {BreedRecord} from "../records/breed.record";
 
 
 export const animalRouter = Router();
@@ -15,10 +16,14 @@ animalRouter.post('/', async (req,res) => {
 })
     .get('/all', async (req,res)=>{
         const result = await AnimalRecord.listAll();
-        console.log(result);
         res.json(result);
-        console.log('pobrane');
+
     })
     .get('/',(res,req)=>{
         console.log("a tuu dziala");
+    })
+    .get('/breed', async (req,res)=>{
+        const result = await BreedRecord.listAll();
+        res.json(result);
+        console.log(result);
     })
