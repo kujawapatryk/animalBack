@@ -22,6 +22,7 @@ export class AnimalRecord implements AnimalEntity{
     pet_friendly: number;
     reproduction: number;
     title: string;
+    'animal.author'?: string;
 
     constructor(obj:AddAnimalEntity) {
         if(!obj.name || obj.name.length >48)
@@ -65,6 +66,8 @@ export class AnimalRecord implements AnimalEntity{
     }
     static async listAll():Promise<AnimalEntity[]> {
         const [results] = await pool.execute("SELECT * FROM `animal`") as AnimalResults;
+        // const [results] = await pool.execute("SELECT `animal`.*, `users`.`name` AS `animal.author`" +
+        //     "FROM `animal` LEFT JOIN `users` ON `animal`.`author` = `users`.`id`;")
         return results.map(obj => new AnimalRecord(obj));
     }
 
